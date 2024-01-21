@@ -6,7 +6,9 @@ import lombok.*;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.List;
 
+@Getter
 @Entity
 @Table(name = "budgets")
 @NoArgsConstructor
@@ -19,7 +21,7 @@ public class Budget {
     private String startDate;
     private String endDate;
     @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL)
-    private ArrayList<Expense> expenses;
+    private List<Expense> expenses;
     private double amountSpent;
     private double remainingAmount;
     @Id
@@ -35,34 +37,6 @@ public class Budget {
         this.expenses = expenses;
         this.amountSpent = amountSpent;
         this.remainingAmount = remainingAmount;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public ArrayList<Expense> getExpenses() {
-        return expenses;
-    }
-
-    public double getAmountSpent() {
-        return amountSpent;
-    }
-
-    public double getRemainingAmount() {
-        return remainingAmount;
     }
 
     public void setAmount(double amount) {
@@ -90,21 +64,17 @@ public class Budget {
                 "Remaining Amount: " + this.remainingAmount;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public int getBudgetDaysLeft() {
+    /*public int getBudgetDaysLeft() {
         LocalDate today = LocalDate.now();
         LocalDate endDate = LocalDate.parse(this.endDate);
         Period period = Period.between(today, endDate);
         return period.getDays();
-    }
+    }*/
 
     public String budgetStatusToString() {
         return "Budget: " + this.name + "\n" +
                 "Amount: " + this.amount + "\n" +
-                "Days left: " + this.getBudgetDaysLeft() + "\n" +
+                /*"Days left: " + this.getBudgetDaysLeft() + "\n" +*/
                 "Amount spent so far: " + this.amountSpent + "\n" +
                 "Remaining Amount: " + this.remainingAmount;
     }

@@ -1,5 +1,6 @@
 package org.example.budgettracker;
 
+import org.example.budgettracker.service.BudgetService;
 import org.example.budgettracker.model.Budget;
 import org.example.budgettracker.model.Expense;
 
@@ -9,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BudgetTest {
 
-    BudgetService budgetService = new BudgetService();
+    BudgetService budgetService;
     Budget budget;
 
     // should set the budget object. then call getBudget() and compare the two
-    private void setBudgetTest() {
+    private void saveBudgetTest() {
 
         // create a budget object
         Budget budget = Budget.builder()
@@ -26,20 +27,20 @@ public class BudgetTest {
                 .remainingAmount(1000.00)
                 .build();
 
-        budgetService.setBudget(budget);
+        Budget savedBudget = budgetService.save(budget);
 
         // assert that budget is equal to budgetService.getBudget()
-        Budget serviceBudget = budgetService.getBudget();
+        Budget serviceBudget = budgetService.findById(savedBudget.getId());
         assertEquals(budget.getName(), serviceBudget.getName());
         assertEquals(budget.getAmount(), serviceBudget.getAmount());
         assertEquals(budget.getStartDate(), serviceBudget.getStartDate());
         assertEquals(budget.getEndDate(), serviceBudget.getEndDate());
-        assertEquals(budget.getExpenses().length().equals(serviceBudget.getExpenses().length())); // not sure if this is the correct way to compare two lists
+        assertEquals(budget.getExpenses().size(), serviceBudget.getExpenses().size());
         assertEquals(budget.getAmountSpent(), serviceBudget.getAmountSpent());
         assertEquals(budget.getRemainingAmount(), serviceBudget.getRemainingAmount());
     }
 
-    // should return the budget object toString()
+    /*// should return the budget object toString() TODO client side methods below?
     private void getBudgetTest() {
         String budgetString = budgetService.getBudget();
 
@@ -77,5 +78,5 @@ public class BudgetTest {
 
         // assert that budgetExpenses is equal to the list of expenses in the budget object
         assertEquals(budgetExpenses, budget.getExpenses());
-    }
+    }*/
 }

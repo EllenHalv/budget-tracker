@@ -1,13 +1,15 @@
 package org.example.budgettracker.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
-@RequiredArgsConstructor
+@Table(name = "expenses")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
+@Data
 public class Expense {
     private String name;
     private double amount;
@@ -26,19 +28,4 @@ public class Expense {
         this.date = date;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public Long getId() {
-        return id;
-    }
 }
