@@ -7,7 +7,7 @@ import org.example.budgettracker.service.ExpenseService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/expenses")
+@RequestMapping("/api/expense")
 @RequiredArgsConstructor
 public class ExpenseController {
 
