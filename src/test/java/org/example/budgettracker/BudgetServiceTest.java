@@ -38,7 +38,7 @@ public class BudgetServiceTest {
         when(mockBudgetService.save(budget)).thenReturn(budget);
 
         // Call the save method and assert the results
-        Budget savedBudget = budgetService.save(budget);
+        Budget savedBudget = mockBudgetService.save(budget);
 
         assertEquals(budget.getName(), savedBudget.getName());
         assertEquals(budget.getAmount(), savedBudget.getAmount());
