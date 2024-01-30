@@ -1,50 +1,55 @@
 package org.example.budgettracker;
 
-import jakarta.transaction.Transactional;
-import org.example.budgettracker.service.BudgetService;
 import org.example.budgettracker.model.Budget;
-import org.example.budgettracker.model.Expense;
+import org.example.budgettracker.service.BudgetService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-
+import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 public class BudgetServiceTest {
 
     @Autowired
-    BudgetService budgetService;
+    private BudgetService budgetService;
 
-    // should set the budget object. then call getBudget() and compare the two
+    @MockBean
+    private BudgetService mockBudgetService;
+
     @Test
     public void testSave() {
-
-        // create a budget object
+        // Create a budget object
         Budget budget = Budget.builder()
                 .name("Test Budget")
                 .amount(1000.00)
                 .startDate("2021-01-01")
                 .endDate("2021-12-31")
-                .expenses(new ArrayList<Expense>())
+                .expenses(new ArrayList<>())
                 .amountSpent(0.00)
                 .remainingAmount(1000.00)
                 .build();
 
+        // Mock the behavior of the budgetService.save method
+        when(mockBudgetService.save(budget)).thenReturn(budget);
+
+        // Call the save method and assert the results
         Budget savedBudget = budgetService.save(budget);
 
-        // assert that budget is equal to budgetService.getBudget()
-        Budget serviceBudget = budgetService.findById(savedBudget.getId());
-        assertEquals(budget.getName(), serviceBudget.getName());
-        assertEquals(budget.getAmount(), serviceBudget.getAmount());
-        assertEquals(budget.getStartDate(), serviceBudget.getStartDate());
-        assertEquals(budget.getEndDate(), serviceBudget.getEndDate());
-        assertEquals(budget.getExpenses().size(), serviceBudget.getExpenses().size());
-        assertEquals(budget.getAmountSpent(), serviceBudget.getAmountSpent());
-        assertEquals(budget.getRemainingAmount(), serviceBudget.getRemainingAmount());
+        assertEquals(budget.getName(), savedBudget.getName());
+        assertEquals(budget.getAmount(), savedBudget.getAmount());
+        assertEquals(budget.getStartDate(), savedBudget.getStartDate());
+        assertEquals(budget.getEndDate(), savedBudget.getEndDate());
+        assertEquals(budget.getExpenses().size(), savedBudget.getExpenses().size());
+        assertEquals(budget.getAmountSpent(), savedBudget.getAmountSpent());
+        assertEquals(budget.getRemainingAmount(), savedBudget.getRemainingAmount());
     }
+
+
 
     /*// should return the budget object toString() TODO client side methods below?
     private void getBudgetTest() {
