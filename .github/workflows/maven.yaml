@@ -30,4 +30,4 @@ jobs:
         run: mvn clean install
 
       - name: Test project
-        run: mvn test
+        run: mvn clean test
