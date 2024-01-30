@@ -20,7 +20,7 @@ public class Budget {
     private double amount;
     private String startDate;
     private String endDate;
-    @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Expense> expenses;
     private double amountSpent;
     private double remainingAmount;

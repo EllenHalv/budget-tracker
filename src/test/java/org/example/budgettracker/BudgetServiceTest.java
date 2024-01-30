@@ -1,20 +1,26 @@
 package org.example.budgettracker;
 
+import jakarta.transaction.Transactional;
 import org.example.budgettracker.service.BudgetService;
 import org.example.budgettracker.model.Budget;
 import org.example.budgettracker.model.Expense;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BudgetTest {
+@SpringBootTest
+public class BudgetServiceTest {
 
+    @Autowired
     BudgetService budgetService;
-    Budget budget;
 
     // should set the budget object. then call getBudget() and compare the two
-    private void saveBudgetTest() {
+    @Test
+    public void testSave() {
 
         // create a budget object
         Budget budget = Budget.builder()
