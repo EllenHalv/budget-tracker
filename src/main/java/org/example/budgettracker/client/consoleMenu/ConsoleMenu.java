@@ -1,6 +1,7 @@
 package org.example.budgettracker.client.consoleMenu;
 
 import org.example.budgettracker.client.service.ClientBudgetService;
+import org.example.budgettracker.client.service.ClientExpenseService;
 import org.example.budgettracker.model.Budget;
 import org.example.budgettracker.model.Expense;
 
@@ -13,6 +14,7 @@ public class ConsoleMenu {
 
     public static void main(String[] args) {
         ClientBudgetService cbs = new ClientBudgetService();
+        ClientExpenseService ces = new ClientExpenseService();
 
         while (true) {
             // print the current budget
@@ -78,16 +80,19 @@ public class ConsoleMenu {
                     // in the current budget...
                     Budget currentBudget = cbs.getCurrentBudget();
 
+                    // TODO just create the expense object. send the expense and budget ID!!!
+
                     // Create an Expense object
                     if (currentBudget!=null) {
-                    currentBudget.getExpenses().add(Expense.builder()
+                    Expense expense = Expense.builder()
                             .name(expenseName)
                             .amount(expenseAmount)
                             .date(expenseDate)
-                            .build());
+                            .budgetId(currentBudget.getId())
+                            .build();
 
                     // send HTTP request to add an expense to the current budget
-                    cbs.updateBudget(currentBudget);
+                    ces.addExpenseToCurrentBudget(expense);
 
                     } else {
                         System.out.println("No current budget. Please create a budget first.");

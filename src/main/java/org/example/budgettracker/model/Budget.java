@@ -8,9 +8,9 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
 @Entity
 @Table(name = "budgets")
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -20,8 +20,8 @@ public class Budget {
     private double amount;
     private String startDate;
     private String endDate;
-    @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Expense> expenses;
+    @OneToMany(mappedBy = "budgetId", cascade = CascadeType.ALL)
+    private List<Expense> expenses = new ArrayList<>();
     private double amountSpent;
     private double remainingAmount;
     @Id
@@ -29,7 +29,7 @@ public class Budget {
     @Column(name = "budget_id")
     private Long id;
 
-    public Budget(String name, double amount, String startDate, String endDate, ArrayList<Expense> expenses, double amountSpent, double remainingAmount) {
+    public Budget(String name, double amount, String startDate, String endDate, List<Expense> expenses, double amountSpent, double remainingAmount) {
         this.name = name;
         this.amount = amount;
         this.startDate = startDate;

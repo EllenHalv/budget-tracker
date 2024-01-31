@@ -1,7 +1,10 @@
 package org.example.budgettracker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.lang.reflect.Type;
 
 @Entity
 @Table(name = "expenses")
@@ -18,14 +21,13 @@ public class Expense {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "expense_id")
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "budget_id")
-    private Budget budget;
+    private Long budgetId;
 
-    public Expense(String name, double amount, String date) {
+    public Expense(String name, double amount, String date, Long budgetId) {
         this.name = name;
         this.amount = amount;
         this.date = date;
+        this.budgetId = budgetId;
     }
 
 }

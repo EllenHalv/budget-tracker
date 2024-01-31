@@ -2,9 +2,12 @@ package org.example.budgettracker.api;
 
 
 import lombok.RequiredArgsConstructor;
+import org.example.budgettracker.model.Budget;
 import org.example.budgettracker.model.Expense;
+import org.example.budgettracker.repository.BudgetRepository;
 import org.example.budgettracker.service.ExpenseService;
 import org.springframework.web.bind.annotation.*;
+// TODO should call the service layer
 
 @RestController
 @RequestMapping("/api/expense")
@@ -12,14 +15,23 @@ import org.springframework.web.bind.annotation.*;
 public class ExpenseController {
 
     private final ExpenseService expenseService;
+    private final BudgetRepository budgetRepository;
 
+    // TODO just create the expense object. send the expense and budget ID!!!
     @PostMapping
-    public String createExpense(@RequestBody Expense expense) {
-        return expenseService.save(expense).toString();
+    public Budget addExpenseToBudget(@RequestBody Expense expense) {
+        //get the budget obj from db
+        Budget budget = budgetRepository.findById(expense.getBudgetId()).orElseThrow();
+        // add the expense to the db
+        Expense dbExpense = expenseService.saveExpense(expense);
+        //add the expense to the budget
+        budget.getExpenses().add(dbExpense);
+        //save the budget to db
+        return expenseService.save(budget);
     }
 
     @GetMapping
-    public String getAllExpenses() {
+    public String getAllExpensesFromOneBudget() {
         return expenseService.findAll().toString();
     }
 
@@ -28,13 +40,13 @@ public class ExpenseController {
         return expenseService.findById(id).toString();
     }
 
-    @PutMapping("/{id}")
-    public String updateExpense(@PathVariable Long id, @RequestBody Expense expense) {
+    /*@PutMapping("/{id}")
+    public String updateOneExpense(@PathVariable Long id, @RequestBody Expense expense) {
         return expenseService.updateExpense(id, expense).toString();
-    }
+    }*/
 
     @DeleteMapping("/{id}")
-    public String deleteExpense(@PathVariable Long id) {
+    public String deleteExpenseFromBudget(@PathVariable Long id) {
         expenseService.deleteById(id);
         return "Expense deleted";
     }
