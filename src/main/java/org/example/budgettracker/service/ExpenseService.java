@@ -8,6 +8,8 @@ import org.example.budgettracker.repository.BudgetRepository;
 import org.example.budgettracker.repository.ExpenseRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ExpenseService {
@@ -28,7 +30,7 @@ public class ExpenseService {
         return expenseRepository.findById(id).orElseThrow(() -> new NoResultException("No expense found with id: " + id));
     }
 
-    public Iterable<Expense> findAll() {
+    public List<Expense> findAll() {
         return expenseRepository.findAll();
     }
 

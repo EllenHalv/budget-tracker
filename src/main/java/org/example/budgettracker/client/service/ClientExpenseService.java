@@ -75,4 +75,31 @@ public class ClientExpenseService {
 
         return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
     }
+
+    public void updateExpense(Expense updatedExpense) {
+        try {
+            String url = "http://localhost:8080/api/expense/" + updatedExpense.getId();
+
+            // Serialize the Budget object to JSON
+            Gson gson = new Gson();
+            String jsonExpense = gson.toJson(updatedExpense);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(url))
+                    .header("Content-Type", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(jsonExpense))
+                    .build();
+
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Handle the response
+            if (response.statusCode() == 200) {
+                System.out.println("Expense updated successfully: " + response.body());
+            } else {
+                System.out.println("Failed to update expense. Status code: " + response.statusCode());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

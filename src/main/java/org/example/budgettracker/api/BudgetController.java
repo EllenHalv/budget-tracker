@@ -2,6 +2,7 @@ package org.example.budgettracker.api;
 
 import lombok.RequiredArgsConstructor;
 import org.example.budgettracker.model.Budget;
+import org.example.budgettracker.model.Expense;
 import org.example.budgettracker.service.BudgetService;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +31,8 @@ public class BudgetController {
         return budgetService.findById(id);
     }
 
-    @PutMapping("/{id}")
+    // for updating info about the budget or its expenses. not for adding expenses
+    @PutMapping("/{id}") // spara expense i budget och spara expense i db
     public Budget update(@PathVariable Long id, @RequestBody Budget budget) {
         return budgetService.updateBudget(id, budget);
     }

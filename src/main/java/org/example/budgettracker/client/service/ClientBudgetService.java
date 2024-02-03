@@ -127,4 +127,120 @@ public class ClientBudgetService {
             throw new RuntimeException(e);
         }
     }
+
+    public void updateBudgetName(Budget budget, String newName) {
+        budget.setName(newName);
+
+        try {
+            String url = "http://localhost:8080/api/budget/" + budget.getId();
+
+            // Serialize the Budget object to JSON
+            Gson gson = new Gson();
+            String jsonBudget = gson.toJson(budget);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(url))
+                    .header("Content-Type", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(jsonBudget))
+                    .build();
+
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Handle the response
+            if (response.statusCode() == 200) {
+                System.out.println("Budget updated successfully: " + response.body());
+            } else {
+                System.out.println("Failed to update budget. Status code: " + response.statusCode());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateBudgetAmount(Budget budget, double newAmount) {
+        budget.setAmount(newAmount);
+
+        try {
+            String url = "http://localhost:8080/api/budget/" + budget.getId();
+
+            // Serialize the Budget object to JSON
+            Gson gson = new Gson();
+            String jsonBudget = gson.toJson(budget);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(url))
+                    .header("Content-Type", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(jsonBudget))
+                    .build();
+
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Handle the response
+            if (response.statusCode() == 200) {
+                System.out.println("Budget updated successfully: " + response.body());
+            } else {
+                System.out.println("Failed to update budget. Status code: " + response.statusCode());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateBudgetStartDate(Budget budget, String newStartDate) {
+        budget.setStartDate(newStartDate);
+
+        try {
+            String url = "http://localhost:8080/api/budget/" + budget.getId();
+
+            // Serialize the Budget object to JSON
+            Gson gson = new Gson();
+            String jsonBudget = gson.toJson(budget);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(url))
+                    .header("Content-Type", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(jsonBudget))
+                    .build();
+
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Handle the response
+            if (response.statusCode() == 200) {
+                System.out.println("Budget updated successfully: " + response.body());
+            } else {
+                System.out.println("Failed to update budget. Status code: " + response.statusCode());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateBudgetEndDate(Budget budget, String newEndDate) {
+        budget.setEndDate(newEndDate);
+
+        try {
+            String url = "http://localhost:8080/api/budget/" + budget.getId();
+
+            // Serialize the Budget object to JSON
+            Gson gson = new Gson();
+            String jsonBudget = gson.toJson(budget);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(url))
+                    .header("Content-Type", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(jsonBudget))
+                    .build();
+
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Handle the response
+            if (response.statusCode() == 200) {
+                System.out.println("Budget updated successfully: " + response.body());
+            } else {
+                System.out.println("Failed to update budget. Status code: " + response.statusCode());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
