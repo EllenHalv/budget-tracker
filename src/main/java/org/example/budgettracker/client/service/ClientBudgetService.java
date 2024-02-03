@@ -2,6 +2,7 @@ package org.example.budgettracker.client.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.example.budgettracker.model.Budget;
 
 import java.io.IOException;
@@ -10,6 +11,8 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
+
 // TODO Ccalls the API (gets the data, do whatever you want with it)
 public class ClientBudgetService {
 
@@ -241,6 +244,33 @@ public class ClientBudgetService {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public List<Budget> getAllBudgets() {
+        try {
+            String url = "http://localhost:8080/api/budget";
+
+            // Create an HTTP request
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(url))
+                    .header("Content-Type", "application/json")
+                    .GET()
+                    .build();
+
+            // Send the request and get the response
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // Check the response status code
+            if (response.statusCode() == 200) {
+                // De-serialize the JSON response into a list of Budget objects
+                Gson gson = new Gson();
+                return gson.fromJson(response.body(), new TypeToken<List<Budget>>() {}.getType());
+            } else {
+                return null;
+            }
+        } catch (IOException | URISyntaxException | InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }

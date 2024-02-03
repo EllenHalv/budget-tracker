@@ -35,10 +35,10 @@ public class ConsoleMenu {
             System.out.println("==== Budget Menu ====");
             System.out.println("1. Create new budget");
             System.out.println("2. Add new expense to current budget");
-            System.out.println("3. Update information of current budget");
-            System.out.println("4. Delete a budget");
+            System.out.println("3. Update current budget");
+            System.out.println("4. Delete a budget"); // TODO
             System.out.println("5. View all budgets"); // TODO show in a list, + clickable for more details or editing of budget
-            System.out.println("6. Go to ==== Expense Menu ==== --->");
+            System.out.println("6. Go to ==== Expense Menu ==== --->"); // TODO will have expense CRUD operations for all budgets not just current
             System.out.println("0. Exit");
             System.out.println();
             System.out.print("Enter your choice: ");
@@ -72,6 +72,7 @@ public class ConsoleMenu {
                             .build();
 
                     // Send HTTP request to create a budget
+                    currentBudget = budget;
                     cbs.createBudget(budget);
                     break;
 
@@ -171,6 +172,31 @@ public class ConsoleMenu {
                             System.out.println("Invalid choice. Please enter a valid option.");
                             break;
                     }
+                    break;
+                    // Delete a budget
+                case 4:
+                    // show all budgets
+                    List<Budget> allBudgets = cbs.getAllBudgets();
+                    for (Budget b : allBudgets) {
+                        System.out.println(b.getId() + "." + b);
+                    }
+                    System.out.println("Enter the budget ID to delete:");
+                    int id = Integer.parseInt(sc.nextLine());
+                    cbs.deleteBudget(id);
+                    currentBudget = cbs.getCurrentBudget();
+                    System.out.println("Budget was deleted successfully.");
+                    break;
+                case 5:
+                    // show all budgets
+                    System.out.println("All budgets:");
+                    List<Budget> allB = cbs.getAllBudgets();
+                    for (Budget b : allB) {
+                        System.out.println("\n" + b);
+                    }
+                    break;
+                case 6:
+                    // Go to Expense Menu
+                    ExpenseMenu.expenseMenu();
                     break;
                 case 0:
                     System.out.println("Exiting the program. Goodbye!");
