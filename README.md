@@ -16,7 +16,7 @@ further fixing:
   - updated expense,
   - updated budget...
 
-  = changes the total, remaining etc (method for this?)
+  = changes the amount remaining and spent. 
 
 - [ ] when user chooses all budgets, options for updating and deleting should be available
 - [ ] create input validation methods for name, amount, startDate, endDate etc...
