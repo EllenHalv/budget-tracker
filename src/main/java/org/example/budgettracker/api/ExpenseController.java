@@ -2,65 +2,58 @@ package org.example.budgettracker.api;
 
 
 import lombok.RequiredArgsConstructor;
-import org.example.budgettracker.model.Budget;
 import org.example.budgettracker.model.Expense;
-import org.example.budgettracker.repository.BudgetRepository;
+import org.example.budgettracker.service.BudgetService;
 import org.example.budgettracker.service.ExpenseService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 // TODO should call the service layer
 
+@CrossOrigin("*")
 @RestController
-@RequestMapping("/api/expense")
+@RequestMapping("/api/expenses")
 @RequiredArgsConstructor
 public class ExpenseController {
 
     private final ExpenseService expenseService;
-    private final BudgetRepository budgetRepository;
 
-    // create the expense object. send the expense and budget ID!!!
+    // create the expense object
     @PostMapping
-    public Budget addExpenseToBudget(@RequestBody Expense expense) {
-        //get the budget obj from db
-        Budget budget = budgetRepository.findById(expense.getBudgetId()).orElseThrow();
-        // add the expense to the db
-        Expense dbExpense = expenseService.saveExpense(expense);
-        //add the expense to the budget
-        budget.getExpenses().add(dbExpense);
-        //save the budget to db
-        return expenseService.save(budget);
+    public ResponseEntity<Object> addExpenseToBudget(@RequestBody Expense expense) { // decided to save expenses directly to the db instead of in budget obj
+        try {
+            //return ResponseEntity.status(201).build(); om statuskoden behövs hellre än objektet använd denna
+            return ResponseEntity.ok(expenseService.save(expense));
+        } catch (Exception e) {
+            return ResponseEntity.status(400).build();
+        }
     }
 
-    @GetMapping
-    public List<Expense> getAllExpensesFromOneBudget() {
-        return expenseService.findAll();
+    @GetMapping("/all/{id}")
+    public List<Expense> getAllExpensesFromOneBudget(@PathVariable Long id) {
+        return expenseService.findAllById(id);
     }
 
     @GetMapping("/{id}")
-    public Expense getExpenseById(@PathVariable Long id) {
+    public Expense getOneExpenseById(@PathVariable Long id) {
         return expenseService.findById(id);
     }
 
-    /*@PutMapping("/{id}")
-    public String updateOneExpense(@PathVariable Long id, @RequestBody Expense expense) {
-        return expenseService.updateExpense(id, expense).toString();
-    }*/
-
     @DeleteMapping("/{id}")
-    public String deleteExpenseFromBudget(@PathVariable Long id) {
+    public ResponseEntity<Object> deleteExpenseFromBudget(@PathVariable Long id) {
         expenseService.deleteById(id);
-        return "Expense deleted";
+        return ResponseEntity.status(204).build();
     }
 
     @PutMapping("/{id}")
-    public Expense updateOneExpense(@PathVariable Long id, @RequestBody Expense expense) {
-        Expense dbExpense = expenseService.findById(id);
-        dbExpense.setName(expense.getName());
-        dbExpense.setAmount(expense.getAmount());
-        dbExpense.setDate(expense.getDate());
-        dbExpense.setBudgetId(expense.getBudgetId());
-        return expenseService.saveExpense(dbExpense);
+    public ResponseEntity<Object> updateOneExpense(@PathVariable Long id, @RequestBody Expense expense) {
+        try {
+            expenseService.updateExpense(id, expense);
+            return ResponseEntity.status(200).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(400).build();
+        }
     }
 }
 

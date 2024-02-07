@@ -27,7 +27,7 @@ public class ClientExpenseService {
 /*
             String url = "http://localhost:8080/api/expense";
 */
-            final HttpPost httpPost = new HttpPost("http://localhost:8080/api/expense");
+            final HttpPost httpPost = new HttpPost("http://localhost:8080/api/expenses");
 
 
             Gson gsonExpense = new Gson();
@@ -78,7 +78,7 @@ public class ClientExpenseService {
 
     public void updateExpense(Expense updatedExpense) {
         try {
-            String url = "http://localhost:8080/api/expense/" + updatedExpense.getId();
+            String url = "http://localhost:8080/api/expenses/" + updatedExpense.getId();
 
             // Serialize the Budget object to JSON
             Gson gson = new Gson();

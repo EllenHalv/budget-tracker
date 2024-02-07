@@ -17,8 +17,6 @@ public class ConsoleMenu {
     public static void main(String[] args) {
         ClientBudgetService cbs = new ClientBudgetService();
         ClientExpenseService ces = new ClientExpenseService();
-        Budget currentBudget = cbs.getCurrentBudget();
-        List<Expense> currentExpenses = currentBudget.getExpenses();
 
         while (true) {
             // print the current budget
@@ -27,7 +25,7 @@ public class ConsoleMenu {
             System.out.println(
                     "\nYour current Budget:"
                             + "\n----------------------------------"
-                            + "\n" + currentBudget
+                            + "\n" + cbs.getCurrentBudget()
                             + "\n----------------------------------"
             );
 
@@ -72,7 +70,6 @@ public class ConsoleMenu {
                             .build();
 
                     // Send HTTP request to create a budget
-                    currentBudget = budget;
                     cbs.createBudget(budget);
                     break;
 
@@ -93,7 +90,7 @@ public class ConsoleMenu {
                             .name(expenseName)
                             .amount(expenseAmount)
                             .date(expenseDate)
-                            .budgetId(currentBudget.getId())
+                            .budgetId(cbs.getCurrentBudget().getId())
                             .build();
 
                     // send HTTP request to add an expense to the current budget
@@ -117,31 +114,31 @@ public class ConsoleMenu {
                         case 1:
                             System.out.print("Enter new name: ");
                             String newName = sc.nextLine();
-                            cbs.updateBudgetName(currentBudget, newName);
+                            cbs.updateBudgetName(cbs.getCurrentBudget(), newName);
                             break;
                         case 2:
                             System.out.print("Enter new amount: ");
                             double newAmount = Double.parseDouble(sc.nextLine());
-                            cbs.updateBudgetAmount(currentBudget, newAmount);
+                            cbs.updateBudgetAmount(cbs.getCurrentBudget(), newAmount);
                             break;
                         case 3:
                             System.out.print("Enter new start date (YYYY-MM-DD): ");
                             String newStartDate = sc.nextLine();
-                            cbs.updateBudgetStartDate(currentBudget, newStartDate);
+                            cbs.updateBudgetStartDate(cbs.getCurrentBudget(), newStartDate);
                             break;
                         case 4:
                             System.out.print("Enter new end date (YYYY-MM-DD): ");
                             String newEndDate = sc.nextLine();
-                            cbs.updateBudgetEndDate(currentBudget, newEndDate);
+                            cbs.updateBudgetEndDate(cbs.getCurrentBudget(), newEndDate);
                             break;
                         case 5:
-                            for (Expense e : currentExpenses) {
+                            for (Expense e : cbs.getCurrentBudget().getExpenses()) {
                                 System.out.println(e.getId() + "." + e);
                             }
                             System.out.println("Enter the expense ID to update:");
                             int expID = Integer.parseInt(sc.nextLine());
 
-                            for (Expense e : currentExpenses) {
+                            for (Expense e : cbs.getCurrentBudget().getExpenses()) {
                                 if (e.getId() == expID) {
                                     System.out.println(e);
                                     System.out.println("Enter new expense details:");
@@ -159,9 +156,6 @@ public class ConsoleMenu {
                                             .id(e.getId())
                                             .build();
 
-                                    currentExpenses.remove(e);
-                                    currentExpenses.add(updatedExpense);
-                                    currentBudget.setExpenses(currentExpenses);
                                     ces.updateExpense(updatedExpense);
                                 }
                             }
@@ -183,7 +177,6 @@ public class ConsoleMenu {
                     System.out.println("Enter the budget ID to delete:");
                     int id = Integer.parseInt(sc.nextLine());
                     cbs.deleteBudget(id);
-                    currentBudget = cbs.getCurrentBudget();
                     System.out.println("Budget was deleted successfully.");
                     break;
                 case 5:

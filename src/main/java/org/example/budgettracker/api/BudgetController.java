@@ -2,15 +2,16 @@ package org.example.budgettracker.api;
 
 import lombok.RequiredArgsConstructor;
 import org.example.budgettracker.model.Budget;
-import org.example.budgettracker.model.Expense;
 import org.example.budgettracker.service.BudgetService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 // TODO should call the service layer
+@CrossOrigin("*")
 @RestController
-@RequestMapping("/api/budget")
+@RequestMapping("/api/budgets")
 @RequiredArgsConstructor
 public class BudgetController {
 
@@ -31,15 +32,16 @@ public class BudgetController {
         return budgetService.findById(id);
     }
 
-    // for updating info about the budget or its expenses. not for adding expenses
-    @PutMapping("/{id}") // spara expense i budget och spara expense i db
+    // for updating info about the budget. not for expense objects
+    @PutMapping("/{id}")
     public Budget update(@PathVariable Long id, @RequestBody Budget budget) {
         return budgetService.updateBudget(id, budget);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<Object> delete(@PathVariable Long id) {
         budgetService.deleteById(id);
+        return ResponseEntity.status(204).build();
     }
 
     @GetMapping("/current")

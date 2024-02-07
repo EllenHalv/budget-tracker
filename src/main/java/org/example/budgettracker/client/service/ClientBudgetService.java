@@ -21,7 +21,7 @@ public class ClientBudgetService {
 
     public void createBudget(Budget budget) {
         try {
-            String url = "http://localhost:8080/api/budget";
+            String url = "http://localhost:8080/api/budgets";
 
             // Serialize the Budget object to JSON
             HttpResponse<String> response = sendRequest(budget, url);
@@ -53,7 +53,7 @@ public class ClientBudgetService {
     public void updateBudget(int id) {
         try {
             //convert id to Long
-            String url = "http://localhost:8080/api/budget/" + (long) id;
+            String url = "http://localhost:8080/api/budgets/" + (long) id;
 
             // Serialize the Budget object to JSON
             Gson gson = new Gson();
@@ -80,7 +80,7 @@ public class ClientBudgetService {
 
     public Budget getCurrentBudget() {
         try {
-            String url = "http://localhost:8080/api/budget/current";
+            String url = "http://localhost:8080/api/budgets/current";
 
             // Create an HTTP request
             HttpRequest request = HttpRequest.newBuilder()
@@ -108,7 +108,7 @@ public class ClientBudgetService {
 
     public void deleteBudget(int id) {
         try {
-            String url = "http://localhost:8080/api/budget/" + id;
+            String url = "http://localhost:8080/api/budgets/" + id;
 
             // Create an HTTP request
             HttpRequest request = HttpRequest.newBuilder()
@@ -135,7 +135,7 @@ public class ClientBudgetService {
         budget.setName(newName);
 
         try {
-            String url = "http://localhost:8080/api/budget/" + budget.getId();
+            String url = "http://localhost:8080/api/budgets/" + budget.getId();
 
             // Serialize the Budget object to JSON
             Gson gson = new Gson();
@@ -164,7 +164,7 @@ public class ClientBudgetService {
         budget.setAmount(newAmount);
 
         try {
-            String url = "http://localhost:8080/api/budget/" + budget.getId();
+            String url = "http://localhost:8080/api/budgets/" + budget.getId();
 
             // Serialize the Budget object to JSON
             Gson gson = new Gson();
@@ -193,7 +193,7 @@ public class ClientBudgetService {
         budget.setStartDate(newStartDate);
 
         try {
-            String url = "http://localhost:8080/api/budget/" + budget.getId();
+            String url = "http://localhost:8080/api/budgets/" + budget.getId();
 
             // Serialize the Budget object to JSON
             Gson gson = new Gson();
@@ -222,7 +222,7 @@ public class ClientBudgetService {
         budget.setEndDate(newEndDate);
 
         try {
-            String url = "http://localhost:8080/api/budget/" + budget.getId();
+            String url = "http://localhost:8080/api/budgets/" + budget.getId();
 
             // Serialize the Budget object to JSON
             Gson gson = new Gson();
@@ -249,7 +249,7 @@ public class ClientBudgetService {
 
     public List<Budget> getAllBudgets() {
         try {
-            String url = "http://localhost:8080/api/budget";
+            String url = "http://localhost:8080/api/budgets";
 
             // Create an HTTP request
             HttpRequest request = HttpRequest.newBuilder()

@@ -11,11 +11,11 @@ TODO for this project:
   - delete current
 
 further fixing:
-- [ ] make sure:
+- [x] make sure:
   - new expense,
   - updated expense,
   - updated budget...
-  - 
+
   = changes the total, remaining etc (method for this?)
 
 - [ ] when user chooses all budgets, options for updating and deleting should be available
