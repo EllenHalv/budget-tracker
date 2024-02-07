@@ -1,6 +1,8 @@
 package org.example.budgettracker.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -16,6 +18,8 @@ import java.util.List;
 @Builder
 @Data
 public class Budget {
+    @NotNull
+    @NotEmpty
     private String name;
     private double amount;
     private String startDate;

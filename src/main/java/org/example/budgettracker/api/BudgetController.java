@@ -1,5 +1,6 @@
 package org.example.budgettracker.api;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.budgettracker.model.Budget;
 import org.example.budgettracker.service.BudgetService;
@@ -18,7 +19,7 @@ public class BudgetController {
     private final BudgetService budgetService;
 
     @PostMapping
-    public Budget save(@RequestBody Budget budget) {
+    public Budget save(@RequestBody @Valid Budget budget) {
         return budgetService.save(budget);
     }
 
