@@ -2,6 +2,8 @@ package org.example.budgettracker.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.lang.reflect.Type;
@@ -15,7 +17,7 @@ import java.lang.reflect.Type;
 @Data
 public class Expense {
     private String name;
-    private double amount;
+    private Double amount;
     private String date;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +25,7 @@ public class Expense {
     private Long id;
     private Long budgetId;
 
-    public Expense(String name, double amount, String date, Long budgetId) {
+    public Expense(String name, Double amount, String date, Long budgetId) {
         this.name = name;
         this.amount = amount;
         this.date = date;

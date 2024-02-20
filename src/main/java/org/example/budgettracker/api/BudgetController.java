@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-// TODO should call the service layer
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/budgets")
@@ -19,7 +18,7 @@ public class BudgetController {
     private final BudgetService budgetService;
 
     @PostMapping
-    public Budget save(@RequestBody @Valid Budget budget) {
+    public Budget save(@RequestBody Budget budget) {
         return budgetService.save(budget);
     }
 

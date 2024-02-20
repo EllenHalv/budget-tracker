@@ -16,6 +16,7 @@ public class ExpenseService {
     private final BudgetService budgetService;
 
     public Expense save(Expense expense) {
+        validateExpense(expense);
         budgetService.addToBudgetSpending(expense.getBudgetId(), expense.getAmount());
         return expenseRepository.save(expense);
     }
@@ -73,6 +74,19 @@ public class ExpenseService {
     private void validateId(Long id) {
         if(id == null || id <= 0) {
             throw new IllegalArgumentException("Invalid id");
+        }
+    }
+
+
+    private void validateExpense(Expense expense) {
+        if(expense.getName().isEmpty()) {
+            throw new IllegalArgumentException("Expense name cannot be empty");
+        }
+        if(expense.getAmount() <= 0) {
+            throw new IllegalArgumentException("Expense amount cannot be negative or zero");
+        }
+        if(expense.getDate().isEmpty()) {
+            throw new IllegalArgumentException("Expense date cannot be empty");
         }
     }
 }

@@ -18,11 +18,11 @@ import java.util.List;
 @Builder
 @Data
 public class Budget {
-    @NotNull
-    @NotEmpty
     private String name;
-    private double amount;
+    @Setter
+    private Double amount;
     private String startDate;
+    @Setter
     private String endDate;
     @OneToMany(mappedBy = "budgetId", cascade = CascadeType.ALL)
     private List<Expense> expenses = new ArrayList<>();
@@ -33,7 +33,7 @@ public class Budget {
     @Column(name = "budget_id")
     private Long id;
 
-    public Budget(String name, double amount, String startDate, String endDate, List<Expense> expenses, double amountSpent, double remainingAmount) {
+    public Budget(String name, Double amount, String startDate, String endDate, List<Expense> expenses, double amountSpent, double remainingAmount) {
         this.name = name;
         this.amount = amount;
         this.startDate = startDate;
@@ -41,20 +41,6 @@ public class Budget {
         this.expenses = expenses;
         this.amountSpent = amountSpent;
         this.remainingAmount = remainingAmount;
-    }
-
-    public void setAmount(double amount) {
-        if (amount < 0) {
-            throw new IllegalArgumentException("Budget amount cannot be negative");
-        }
-        this.amount = amount;
-    }
-
-    public void setEndDate(String endDate) {
-        if (endDate.compareTo(this.startDate) < 0) {
-            throw new IllegalArgumentException("End date cannot be before start date");
-        }
-        this.endDate = endDate;
     }
 
     @Override

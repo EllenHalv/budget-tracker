@@ -21,7 +21,7 @@ public class BudgetTrackerApplication {
         ConsoleMenu.main(args);
     }
 
-    @Bean
+    /*@Bean
     CommandLineRunner run(BudgetRepository budgetRepository) {
         return args -> {
             Budget budget = Budget.builder()
@@ -49,5 +49,5 @@ public class BudgetTrackerApplication {
 
             budgetRepository.save(budget);
         };
-    }
+    }*/
 }

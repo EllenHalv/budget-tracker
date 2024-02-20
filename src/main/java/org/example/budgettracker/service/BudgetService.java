@@ -16,6 +16,7 @@ public class BudgetService {
     private final BudgetRepository budgetRepository;
 
     public Budget save(Budget budget) {
+        validateBudget(budget);
         return budgetRepository.save(budget);
     }
 
@@ -40,6 +41,7 @@ public class BudgetService {
     // look for: updated amount
     public Budget updateBudget(Long id, Budget updateBudget) {
         validateId(id);
+        validateBudget(updateBudget);
         
         Budget budget = findById(id);
 
@@ -55,14 +57,14 @@ public class BudgetService {
         return save(budget);
     }
 
-    public void addToBudgetSpending(Long budgetId, double expenseAmount) {
+    public void addToBudgetSpending(Long budgetId, Double expenseAmount) {
         Budget budget = findById(budgetId);
         budget.setAmountSpent(budget.getAmountSpent() + expenseAmount);
         budget.setRemainingAmount(budget.getAmount() - budget.getAmountSpent());
         save(budget);
     }
 
-    public void subtractFromBudgetSpending(Long budgetId, double expenseAmount) {
+    public void subtractFromBudgetSpending(Long budgetId, Double expenseAmount) {
         Budget budget = findById(budgetId);
         budget.setAmountSpent(budget.getAmountSpent() - expenseAmount);
         budget.setRemainingAmount(budget.getAmount() - budget.getAmountSpent());
@@ -95,6 +97,24 @@ public class BudgetService {
     private void validateId(Long id) {
         if (id == null || id <= 0) {
             throw new IllegalArgumentException("Invalid id");
+        }
+    }
+
+    private void validateBudget(Budget budget) {
+        if (budget.getName().isEmpty()) {
+            throw new IllegalArgumentException("Budget name cannot be empty");
+        }
+        if (budget.getAmount() <= 0) {
+            throw new IllegalArgumentException("Budget amount cannot be negative or zero");
+        }
+        if (budget.getStartDate().isEmpty()) {
+            throw new IllegalArgumentException("Start date cannot be empty");
+        }
+        if (budget.getEndDate().isEmpty()) {
+            throw new IllegalArgumentException("End date cannot be empty");
+        }
+        if (budget.getEndDate().compareTo(budget.getStartDate()) < 0) {
+            throw new IllegalArgumentException("End date cannot be before start date");
         }
     }
 }

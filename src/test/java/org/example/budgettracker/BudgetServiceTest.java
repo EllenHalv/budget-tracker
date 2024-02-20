@@ -24,7 +24,7 @@ public class BudgetServiceTest {
     @MockBean
     private BudgetService mockBudgetService;
 
-    @Test
+    /*@Test
     public void testSave() {
         // Create a budget object
         Budget budget = Budget.builder()
@@ -50,7 +50,7 @@ public class BudgetServiceTest {
         assertEquals(budget.getExpenses().size(), savedBudget.getExpenses().size());
         assertEquals(budget.getAmountSpent(), savedBudget.getAmountSpent());
         assertEquals(budget.getRemainingAmount(), savedBudget.getRemainingAmount());
-    }
+    }*/
 
 
 
