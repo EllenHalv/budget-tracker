@@ -1,4 +1,3 @@
-/*
 package org.example.budgettracker.model.response;
 
 import lombok.AllArgsConstructor;
@@ -20,4 +19,3 @@ public class BudgetDTO {
         return new BudgetDTO(budget.getName(), budget.getStartDate(), budget.getEndDate(), budget.getAmount(), budget.getRemainingAmount(), budget.getAmountSpent(), budget.getUser().getId());
     }
 }
-*/

@@ -10,5 +10,5 @@ import java.util.List;
 public interface BudgetRepository extends JpaRepository<Budget, Long> {
     Budget findFirstByOrderByIdDesc();
 
-    //List<Budget> findAllBudgetsByUserId(Long id);
+    List<Budget> findAllBudgetsByUserId(Long id);
 }

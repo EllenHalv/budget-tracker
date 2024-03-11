@@ -31,9 +31,9 @@ public class Budget {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "budget_id")
     private Long id;
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;*/
+    private User user;
 
     public Budget(String name, Double amount, String startDate, String endDate, List<Expense> expenses, double amountSpent, double remainingAmount) {
         this.name = name;

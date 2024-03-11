@@ -4,20 +4,34 @@ import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import org.example.budgettracker.model.entity.Budget;
 import org.example.budgettracker.model.entity.Expense;
+import org.example.budgettracker.model.entity.User;
+import org.example.budgettracker.model.response.BudgetListDTO;
 import org.example.budgettracker.repository.BudgetRepository;
+import org.example.budgettracker.repository.UserRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class BudgetService {
 
     private final BudgetRepository budgetRepository;
+    private final UserRepository userRepository;
 
     public Budget save(Budget budget) {
         validateBudget(budget);
+        // find user
+        Optional<User> user = userRepository.findByUsername(budget.getUser().getUsername());
+        if (user.isPresent()) {
+            User budgetUser = user.get();
+            budget.setUser(budgetUser);
             return budgetRepository.save(budget);
+        }
+        return null;
     }
 
     public Budget findById(Long id) {
@@ -25,9 +39,16 @@ public class BudgetService {
         return budgetRepository.findById(id).orElseThrow(() -> new NoResultException("No budget found with id: " + id));
     }
 
-    public List<Budget> findAll() {
-            return budgetRepository.findAll();
-            //return BudgetListDTO.fromBudgetList(budgetsList);
+    public List<BudgetListDTO> findAll(Authentication auth) {
+        Optional<User> user = userRepository.findByUsername(auth.getName());
+
+        if (user.isPresent()) {
+            User budgetUser = user.get();
+            Long userId = budgetUser.getId();
+            List<Budget> budgetsList = budgetRepository.findAllBudgetsByUserId(userId);
+            return BudgetListDTO.fromBudgetList(budgetsList);
+        }
+        throw new NoResultException("User not found");
     }
 
     public void deleteById(Long id) {

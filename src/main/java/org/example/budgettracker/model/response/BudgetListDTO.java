@@ -1,4 +1,3 @@
-/*
 package org.example.budgettracker.model.response;
 
 import lombok.AllArgsConstructor;
@@ -16,4 +15,3 @@ public class BudgetListDTO {
         return List.of(new BudgetListDTO(budgetsList.stream().map(BudgetDTO::fromBudget).toList()));
     }
 }
-*/
