@@ -2,8 +2,8 @@ package org.example.budgettracker.client.consoleMenu;
 
 import org.example.budgettracker.client.service.ClientBudgetService;
 import org.example.budgettracker.client.service.ClientExpenseService;
-import org.example.budgettracker.model.Budget;
-import org.example.budgettracker.model.Expense;
+import org.example.budgettracker.model.entity.Budget;
+import org.example.budgettracker.model.entity.Expense;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +90,7 @@ public class ConsoleMenu {
                             .name(expenseName)
                             .amount(expenseAmount)
                             .date(expenseDate)
-                            .budgetId(cbs.getCurrentBudget().getId())
+                            .budget(cbs.getCurrentBudget())
                             .build();
 
                     // send HTTP request to add an expense to the current budget
@@ -152,7 +152,7 @@ public class ConsoleMenu {
                                             .name(updatedExpenseName)
                                             .amount(updatedExpenseAmount)
                                             .date(updatedExpenseDate)
-                                            .budgetId(e.getBudgetId())
+                                            .budget(e.getBudget())
                                             .id(e.getId())
                                             .build();
 

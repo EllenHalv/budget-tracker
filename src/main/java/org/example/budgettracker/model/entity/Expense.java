@@ -1,6 +1,7 @@
-package org.example.budgettracker.model;
+package org.example.budgettracker.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -23,13 +24,12 @@ public class Expense {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "expense_id")
     private Long id;
-    private Long budgetId;
+    //private Long budgetId;
 
-    public Expense(String name, Double amount, String date, Long budgetId) {
-        this.name = name;
-        this.amount = amount;
-        this.date = date;
-        this.budgetId = budgetId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "budget_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Budget budget;
+
 
 }

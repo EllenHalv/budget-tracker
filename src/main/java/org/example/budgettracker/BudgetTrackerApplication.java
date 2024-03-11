@@ -1,15 +1,8 @@
 package org.example.budgettracker;
 
 import org.example.budgettracker.client.consoleMenu.ConsoleMenu;
-import org.example.budgettracker.model.Budget;
-import org.example.budgettracker.model.Expense;
-import org.example.budgettracker.repository.BudgetRepository;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import java.util.ArrayList;
 
 @SpringBootApplication
 public class BudgetTrackerApplication {
@@ -22,8 +15,16 @@ public class BudgetTrackerApplication {
     }
 
     /*@Bean
-    CommandLineRunner run(BudgetRepository budgetRepository) {
+    CommandLineRunner run(BudgetRepository budgetRepository, UserRepository userRepository) {
         return args -> {
+            User user = User.builder()
+                    .username("ellen")
+                    .password("12345")
+                    .role(Role.USER)
+                    .build();
+
+            userRepository.save(user);
+
             Budget budget = Budget.builder()
             .name("My budget")
             .amount(1000.0)
@@ -32,6 +33,7 @@ public class BudgetTrackerApplication {
             .expenses(new ArrayList<Expense>())
             .remainingAmount(1000.0)
             .amountSpent(0.0)
+            .user(user)
             .build();
 
             budgetRepository.save(budget);
@@ -40,7 +42,7 @@ public class BudgetTrackerApplication {
             .name("My expense")
             .amount(100.0)
             .date("2021-01-01")
-            .budgetId(budget.getId())
+            .budget(budget)
             .build();
 
             budget.getExpenses().add(expense);

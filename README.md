@@ -7,17 +7,14 @@ This app allows the user to set a budget, add expenses and keep track of their b
 
 ## This is a WIP (Work in Progress) :rocket:	
 TODO for this project:
-- [x] CRUD:
-  - get all
-  - update
-  - delete current
+#### Security
+- Login for users [X]
+- Add auth for endpoints [ ]
+- UI for login [ ]
+- UI for a view of all expenses [ ]
 
-further fixing:
-- [x] make sure:
-  - new expense,
-  - updated expense,
-  - updated budget...
+## API Documentation with Swagger UI:
 
-  = changes the amount remaining and spent. 
+Once the application is started, visit this URL for documentation:
 
-- [x] create input validation methods for name, amount, startDate, endDate
+[localhost:8080/swagger-ui.html](localhost:8080/swagger-ui.html)

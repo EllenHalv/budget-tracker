@@ -1,6 +1,6 @@
 package org.example.budgettracker.repository;
 
-import org.example.budgettracker.model.Expense;
+import org.example.budgettracker.model.entity.Expense;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -3,7 +3,7 @@ package org.example.budgettracker.client.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.example.budgettracker.model.Budget;
+import org.example.budgettracker.model.entity.Budget;
 
 import java.io.IOException;
 import java.net.URI;

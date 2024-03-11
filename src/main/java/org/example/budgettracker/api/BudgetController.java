@@ -1,8 +1,8 @@
 package org.example.budgettracker.api;
 
-import jakarta.validation.Valid;
+import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
-import org.example.budgettracker.model.Budget;
+import org.example.budgettracker.model.entity.Budget;
 import org.example.budgettracker.service.BudgetService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +17,34 @@ public class BudgetController {
 
     private final BudgetService budgetService;
 
+    // saves budget to the logged in user
     @PostMapping
-    public Budget save(@RequestBody Budget budget) {
-        return budgetService.save(budget);
+    public ResponseEntity<Budget> save(@RequestBody Budget budget) {
+        try {
+            return ResponseEntity.ok(budgetService.save(budget));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
-    @GetMapping
+
+    //finds all budgets for the logged in user
+    /*@GetMapping
     public List<Budget> findAll() {
         return budgetService.findAll();
+    }*/
+
+    // finds all budgets for the logged in user. returns a list of BudgetDTO objects
+    @GetMapping
+    public ResponseEntity<List<Budget>> findAll() {
+        try{
+            return ResponseEntity.ok(budgetService.findAll());
+        } catch (NoResultException e) {
+            return ResponseEntity.notFound().build();
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/{id}")
@@ -44,9 +64,9 @@ public class BudgetController {
         return ResponseEntity.status(204).build();
     }
 
+    // finds the current (latest) budget for the logged in user
     @GetMapping("/current")
     public Budget getCurrentBudget() {
         return budgetService.findCurrent();
     }
-
 }

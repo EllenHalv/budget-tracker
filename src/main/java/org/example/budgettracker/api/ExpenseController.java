@@ -2,8 +2,7 @@ package org.example.budgettracker.api;
 
 
 import lombok.RequiredArgsConstructor;
-import org.example.budgettracker.model.Expense;
-import org.example.budgettracker.service.BudgetService;
+import org.example.budgettracker.model.entity.Expense;
 import org.example.budgettracker.service.ExpenseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

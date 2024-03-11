@@ -2,8 +2,8 @@ package org.example.budgettracker.service;
 
 import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
-import org.example.budgettracker.model.Budget;
-import org.example.budgettracker.model.Expense;
+import org.example.budgettracker.model.entity.Budget;
+import org.example.budgettracker.model.entity.Expense;
 import org.example.budgettracker.repository.BudgetRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class BudgetService {
 
     public Budget save(Budget budget) {
         validateBudget(budget);
-        return budgetRepository.save(budget);
+            return budgetRepository.save(budget);
     }
 
     public Budget findById(Long id) {
@@ -26,7 +26,8 @@ public class BudgetService {
     }
 
     public List<Budget> findAll() {
-        return budgetRepository.findAll();
+            return budgetRepository.findAll();
+            //return BudgetListDTO.fromBudgetList(budgetsList);
     }
 
     public void deleteById(Long id) {

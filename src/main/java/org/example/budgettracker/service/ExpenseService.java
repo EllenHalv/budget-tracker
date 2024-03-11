@@ -2,7 +2,7 @@ package org.example.budgettracker.service;
 
 import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
-import org.example.budgettracker.model.Expense;
+import org.example.budgettracker.model.entity.Expense;
 import org.example.budgettracker.repository.ExpenseRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class ExpenseService {
 
     public Expense save(Expense expense) {
         validateExpense(expense);
-        budgetService.addToBudgetSpending(expense.getBudgetId(), expense.getAmount());
+        budgetService.addToBudgetSpending(expense.getBudget().getId(), expense.getAmount());
         return expenseRepository.save(expense);
     }
 
@@ -49,11 +49,10 @@ public class ExpenseService {
                     .name(updateExpense.getName())
                     .amount(updateExpense.getAmount())
                     .date(updateExpense.getDate())
-                    .budgetId(updateExpense.getBudgetId())
                     .id(expense.getId())
                     .build();
 
-            budgetService.updateBudgetSpending(expense.getBudgetId(), newExpense);
+            budgetService.updateBudgetSpending(expense.getBudget().getId(), newExpense);
         } else {
             updateExpenseWithoutAmountChange(updateExpense, expense.getId());
         }
@@ -64,7 +63,6 @@ public class ExpenseService {
                 .name(updateExpense.getName())
                 .amount(updateExpense.getAmount())
                 .date(updateExpense.getDate())
-                .budgetId(updateExpense.getBudgetId())
                 .id(id)
                 .build();
 
