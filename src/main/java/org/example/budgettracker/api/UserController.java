@@ -5,10 +5,12 @@ import lombok.RequiredArgsConstructor;
 import org.example.budgettracker.model.entity.User;
 import org.example.budgettracker.model.request.NewPasswordRequest;
 import org.example.budgettracker.model.request.NewUsernameRequest;
+import org.example.budgettracker.model.request.RegisterRequest;
 import org.example.budgettracker.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -37,6 +39,23 @@ public class UserController {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
+        }
+    }
+
+    //admin skapar användare
+    @PostMapping
+    public ResponseEntity<String> create(
+            Authentication authentication,
+            @RequestBody RegisterRequest registerRequest
+    ) {
+        if(authentication == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if(!isAdmin(authentication)) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+
+        try {
+            userService.create(registerRequest);
+            return ResponseEntity.ok("1");
+        } catch (Exception e) {
+            return ResponseEntity.ok("0");
         }
     }
 
@@ -94,5 +113,17 @@ public class UserController {
     // check if user is logged in user
     private boolean isLoggedInUser(Long id, Authentication auth) {
         return userService.findById(id).equals(auth.getName());
+    }
+
+    private boolean isAdminOrLoggedInUser(Long id, Authentication authentication) {
+        return isAdmin(authentication) || isLoggedInUser(id, authentication);
+    }
+    private boolean isAdmin(Authentication authentication) {
+        for(GrantedAuthority authority : authentication.getAuthorities()) {
+            if(authority.getAuthority().equals("ROLE_ADMIN")) {
+                return true;
+            }
+        }
+        return false;
     }
 }
