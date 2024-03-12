@@ -28,30 +28,31 @@ public class User implements UserDetails {
     private String username;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    /*@Enumerated(EnumType.STRING)
+    private Role role;*/
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Budget> budgets = new ArrayList<>();
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "user_role_junction",
-//            joinColumns = {@JoinColumn(name = "user_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "role_id")}
-//    )
-//
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_role_junction",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
+    )
+    private Set<Role> roles;
 
-//    @Override
-//    @JsonIgnore
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return roles;
-//    }
 
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return roles;
     }
+
+    /*@Override
+    @JsonIgnore
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }*/
 
     @Override
     @JsonIgnore
@@ -79,7 +80,7 @@ public class User implements UserDetails {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, role);
+        return Objects.hash(id, username, password, roles);
     }
     @Override
     public boolean equals(Object obj) {
@@ -90,6 +91,6 @@ public class User implements UserDetails {
         return Objects.equals(id, user.id) &&
                 Objects.equals(username, user.username) &&
                 Objects.equals(password, user.password) &&
-                Objects.equals(role, user.role);
+                Objects.equals(roles, user.roles);
     }
 }

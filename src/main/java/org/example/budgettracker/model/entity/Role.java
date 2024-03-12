@@ -1,15 +1,13 @@
 package org.example.budgettracker.model.entity;
 
-/*
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-*/
-
+/*
 public enum Role {
-    USER
-/*@Entity
+    USER*/
+@Entity
 @Data
 @NoArgsConstructor
 public class Role implements GrantedAuthority {
@@ -21,5 +19,5 @@ public class Role implements GrantedAuthority {
 
     public Role(String authority) {
         this.authority = authority;
-    }*/
+    }
 }

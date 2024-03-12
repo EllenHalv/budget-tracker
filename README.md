@@ -9,6 +9,7 @@ This app allows the user to set a budget, add expenses and keep track of their b
 TODO for this project:
 #### Security
 - Login for users [X]
+- Add admin user [X]
 - Add auth for endpoints [ ]
 - UI for login [ ]
 - UI for a view of all expenses [ ]
