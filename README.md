@@ -10,7 +10,8 @@ TODO for this project:
 #### Security
 - Login for users [X]
 - Add admin user [X]
-- Add auth for endpoints [ ]
+- Add auth for endpoints in BudgetController [X]
+- Add auth for endpoints in ExpenseController [ ]
 - UI for login [ ]
 - UI for a view of all expenses [ ]
 

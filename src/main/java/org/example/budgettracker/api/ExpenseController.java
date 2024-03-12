@@ -4,7 +4,10 @@ package org.example.budgettracker.api;
 import lombok.RequiredArgsConstructor;
 import org.example.budgettracker.model.entity.Expense;
 import org.example.budgettracker.service.ExpenseService;
+import org.example.budgettracker.service.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +18,7 @@ import java.util.List;
 @RequestMapping("/api/expenses")
 @RequiredArgsConstructor
 public class ExpenseController {
-
+    private final UserService userService;
     private final ExpenseService expenseService;
 
     // create the expense object
@@ -53,6 +56,23 @@ public class ExpenseController {
         } catch (Exception e) {
             return ResponseEntity.status(400).build();
         }
+    }
+
+    // check if user is logged in user
+    private boolean isLoggedInUser(Long id, Authentication auth) {
+        return userService.findById(id).getUsername().equals(auth.getName());
+    }
+
+    private boolean isAdminOrLoggedInUser(Long id, Authentication authentication) {
+        return isAdmin(authentication) || isLoggedInUser(id, authentication);
+    }
+    private boolean isAdmin(Authentication authentication) {
+        for(GrantedAuthority authority : authentication.getAuthorities()) {
+            if(authority.getAuthority().equals("ROLE_ADMIN")) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
