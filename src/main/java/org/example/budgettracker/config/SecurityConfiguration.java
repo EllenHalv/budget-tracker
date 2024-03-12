@@ -65,13 +65,13 @@ public class SecurityConfiguration {
                     auth.requestMatchers(AUTH_WHITELIST).permitAll();
 
                     // /api/budgets
-                    auth.requestMatchers("/api/budgets/**").hasRole("USER");
+                    auth.requestMatchers("/api/budgets/**").hasAnyRole("USER", "ADMIN");
 
                     // /api/expenses
-                    auth.requestMatchers("/api/expenses/**").hasRole("USER");
+                    auth.requestMatchers("/api/expenses/**").hasAnyRole("USER", "ADMIN");
 
                     // /api/users
-                    auth.requestMatchers("/api/users/**").hasRole("USER");
+                    auth.requestMatchers("/api/users/**").hasAnyRole("USER", "ADMIN");
 
                     auth.anyRequest().authenticated();
                 });
