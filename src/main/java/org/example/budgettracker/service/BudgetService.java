@@ -39,13 +39,17 @@ public class BudgetService {
         return budgetRepository.findById(id).orElseThrow(() -> new NoResultException("No budget found with id: " + id));
     }
 
-    public List<BudgetListDTO> findAll(Authentication auth) {
-        Optional<User> user = userRepository.findByUsername(auth.getName());
+    public List<BudgetListDTO> findAll() {
+        List<Budget> budgetsList = budgetRepository.findAll();
+        return BudgetListDTO.fromBudgetList(budgetsList);
+    }
+
+    public List<BudgetListDTO> findAllById(Long id) {
+        Optional<User> user = userRepository.findById(id);
 
         if (user.isPresent()) {
             User budgetUser = user.get();
-            Long userId = budgetUser.getId();
-            List<Budget> budgetsList = budgetRepository.findAllBudgetsByUserId(userId);
+            List<Budget> budgetsList = budgetRepository.findAllBudgetsByUserId(budgetUser.getId());
             return BudgetListDTO.fromBudgetList(budgetsList);
         }
         throw new NoResultException("User not found");
@@ -112,8 +116,9 @@ public class BudgetService {
         }
     }
 
-    public Budget findCurrent() {
-        return budgetRepository.findFirstByOrderByIdDesc();
+    public Budget findCurrent(Long userId) {
+        validateId(userId);
+        return budgetRepository.findFirstByUserIdOrderByIdDesc(userId);
     }
 
     private void validateId(Long id) {
