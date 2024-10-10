@@ -17,6 +17,8 @@ TODO for this project:
 
 ## API Documentation with Swagger UI:
 
+This project uses Swagger UI for API documentation.
+
 Once the application is started, visit this URL for documentation:
 
 [localhost:8080/swagger-ui.html](localhost:8080/swagger-ui.html)
