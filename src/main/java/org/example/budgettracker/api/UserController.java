@@ -7,6 +7,7 @@ import org.example.budgettracker.model.request.NewPasswordRequest;
 import org.example.budgettracker.model.request.NewUsernameRequest;
 import org.example.budgettracker.model.request.RegisterRequest;
 import org.example.budgettracker.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -22,7 +23,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
-    UserService userService;
+
+    private final UserService userService;
 
     // user gets user-info (username, dolt lösen, kan användas till user-page senare om user entity ska vidareutvecklas)
     @GetMapping("/{id}")
@@ -31,7 +33,7 @@ public class UserController {
             @PathVariable Long id
     ) {
         if(auth == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        if(isLoggedInUser(id, auth)) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        if(!isLoggedInUser(id, auth)) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
         try {
             return ResponseEntity.ok(userService.findById(id));

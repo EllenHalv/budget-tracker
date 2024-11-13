@@ -39,7 +39,7 @@ public class AuthService {
         User user = User.builder()
                 .username(request.username())
                 .password(passwordEncoder.encode(request.password()))
-                .roles(new HashSet<>(List.of(roleRepo.findByAuthority("USER").orElseThrow(() -> new RuntimeException("User role not found")))))
+                .roles(new HashSet<>(List.of(roleRepo.findByAuthority("ROLE_USER").orElseThrow(() -> new RuntimeException("User role not found")))))
                 .budgets(new ArrayList<>())
                 .build();
 

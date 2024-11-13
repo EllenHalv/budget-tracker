@@ -3,17 +3,19 @@
 ## Description
 This app allows the user to set a budget, add expenses and keep track of their budget.
 
-- Uses an H2 database for development and a MySQL database for production.
+- Uses an H2 database for testing purposes and a MySQL database for development.
 
-## This is a WIP (Work in Progress) :rocket:	
-TODO for this project:
-#### Security
-- Login for users [X]
-- Add admin user [X]
-- Add auth for endpoints in BudgetController [X]
+## Security using OAuth2 :key:	
+
+- Postman login for users [X]
+- Admin user with additional CRUD privilegies [X]
+- Authentication for endpoints in BudgetController [X]
+
+
+- TODO (work in progress):
 - Add auth for endpoints in ExpenseController [ ]
-- UI for login [ ]
-- UI for a view of all expenses [ ]
+- UI login [ ]
+- UI view of all expenses [ ]
 
 ## API Documentation with Swagger UI:
 
