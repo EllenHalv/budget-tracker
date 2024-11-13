@@ -11,8 +11,7 @@ This app allows the user to set a budget, add expenses and keep track of their b
 - Admin user with additional CRUD privilegies [X]
 - Authentication for endpoints in BudgetController [X]
 
-
-- TODO (work in progress):
+TODO (work in progress):
 - Add auth for endpoints in ExpenseController [ ]
 - UI login [ ]
 - UI view of all expenses [ ]
