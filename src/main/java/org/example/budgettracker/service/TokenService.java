@@ -20,7 +20,7 @@ public class TokenService {
         String role = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .findFirst() // Get the first role
-                .orElse("USER"); // Default to "USER" if no role is found
+                .orElse("ROLE_USER"); // Default to "ROLE_USER" if no role is found
 
         JwtClaimsSet claimsSet = JwtClaimsSet.builder()
                 .issuer("self")

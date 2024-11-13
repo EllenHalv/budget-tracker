@@ -46,6 +46,7 @@ public class BudgetController {
             return ResponseEntity.notFound().build();
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().build();
         }
     }
