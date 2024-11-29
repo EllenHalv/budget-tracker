@@ -18,13 +18,6 @@ The **Budget Tracker Application** enables users to manage their finances by set
 
 ## Getting Started  
 
-### Prerequisites  
-Before starting, ensure you have the following installed:  
-- **Java 17+**: [Download Java](https://www.oracle.com/java/technologies/javase-downloads.html)  
-- **Node.js**: [Download Node.js](https://nodejs.org/)  
-- **MySQL**: [Download MySQL](https://dev.mysql.com/downloads/)  
-- **Maven**: [Download Maven](https://maven.apache.org/download.cgi)  
-
 ### Backend Setup  
 1. Clone the backend repository:  
    ```bash
