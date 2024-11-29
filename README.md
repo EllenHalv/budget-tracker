@@ -48,16 +48,16 @@ For instructions on setting up the React frontend, visit the repository:
 
 ## Learn More  
 ### Backend  
-- **Java**: Learn how to build robust backend systems using Java.  
+- **Java**:  
   - [Oracle Java Documentation](https://docs.oracle.com/javase/8/docs/)  
   - [Spring Boot Documentation](https://spring.io/projects/spring-boot)  
-- **Databases**: Get started with relational databases.  
+- **Databases**:  
   - [H2 Database Documentation](http://www.h2database.com/html/main.html)  
   - [MySQL Documentation](https://dev.mysql.com/doc/)  
-- **OAuth2**: Understand secure authentication and authorization.  
+- **OAuth2**:  
   - [OAuth2 Guide](https://oauth.net/2/)  
   - [Spring Security and OAuth2](https://spring.io/guides/tutorials/spring-boot-oauth2/)  
-- **Swagger UI**: Explore API documentation tools.  
+- **Swagger UI**:  
   - [Swagger Documentation](https://swagger.io/tools/swagger-ui/)  
 
 ## TODO (In Progress)
