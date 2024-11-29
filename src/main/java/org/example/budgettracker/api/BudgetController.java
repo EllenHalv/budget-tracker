@@ -53,7 +53,7 @@ public class BudgetController {
 
     // finds all budgets by userId for the logged in user or admin
     @GetMapping("/user/{id}")
-    public ResponseEntity<List<BudgetListDTO>> findAllByUserId(@PathVariable Long id, Authentication auth) {
+    public ResponseEntity<List<Budget>> findAllByUserId(@PathVariable Long id, Authentication auth) {
         if(auth == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         if(!isAdminOrLoggedInUser(id, auth)) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         try{

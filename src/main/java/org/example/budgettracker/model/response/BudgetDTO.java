@@ -7,6 +7,7 @@ import org.example.budgettracker.model.entity.Budget;
 @AllArgsConstructor
 @Data
 public class BudgetDTO {
+    private Long id;
     private String name;
     private String startDate;
     private String endDate;
@@ -16,6 +17,6 @@ public class BudgetDTO {
     private Long userId;
 
     public static BudgetDTO fromBudget(Budget budget) {
-        return new BudgetDTO(budget.getName(), budget.getStartDate(), budget.getEndDate(), budget.getAmount(), budget.getRemainingAmount(), budget.getAmountSpent(), budget.getUser().getId());
+        return new BudgetDTO(budget.getId(), budget.getName(), budget.getStartDate(), budget.getEndDate(), budget.getAmount(), budget.getRemainingAmount(), budget.getAmountSpent(), budget.getUser().getId());
     }
 }

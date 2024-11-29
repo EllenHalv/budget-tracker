@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.budgettracker.model.entity.Budget;
 import org.example.budgettracker.model.entity.Expense;
 import org.example.budgettracker.model.entity.User;
+import org.example.budgettracker.model.response.BudgetDTO;
 import org.example.budgettracker.model.response.BudgetListDTO;
 import org.example.budgettracker.repository.BudgetRepository;
 import org.example.budgettracker.repository.UserRepository;
@@ -44,13 +45,15 @@ public class BudgetService {
         return BudgetListDTO.fromBudgetList(budgetsList);
     }
 
-    public List<BudgetListDTO> findAllById(Long id) {
+    public List<Budget> findAllById(Long id) {
         Optional<User> user = userRepository.findById(id);
 
         if (user.isPresent()) {
             User budgetUser = user.get();
             List<Budget> budgetsList = budgetRepository.findAllBudgetsByUserId(budgetUser.getId());
-            return BudgetListDTO.fromBudgetList(budgetsList);
+            //return BudgetListDTO.fromBudgetList(budgetsList);
+            return budgetsList;
+
         }
         throw new NoResultException("User not found");
     }

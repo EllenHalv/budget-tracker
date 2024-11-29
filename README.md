@@ -1,29 +1,24 @@
 ﻿# Budget Tracker Application
 
-## Description
-This app allows the user to set a budget, add expenses and keep track of their budget.
+## Overview
+The **Budget Tracker Application** enables users to manage their finances by setting a budget, logging expenses, and monitoring their spending. Designed with both functionality and security in mind, this application is built with a Java backend and a React-based frontend, using Oauth2-based authentication.
 
-- Uses an H2 database for testing purposes and a MySQL database for development.
+## Features
+- **Budget Management**: Set budgets, track expenses, and monitor remaining balances.
+- **Database Integration**:
+    - **H2 Database**: Used for local testing and rapid prototyping.
+    - **MySQL Database**: Used in the development environment for scalability and reliability.
+- **Security**:
+    - OAuth2-based authentication for secure user access. 🔑
+    - Endpoint protection in `BudgetController`.
+    - Postman-tested login endpoints for users.
+    - Admin user role with additional CRUD privileges for advanced management.
+- **API Documentation**: Comprehensive API documentation available via Swagger UI.
+    - Access the documentation after starting the application at:  
+      `http://localhost:8080/swagger-ui.html`.
 
-## Security using OAuth2 :key:	
+## Frontend
+- **Link to frontend**: [Budget Tracker Frontend](https://github.com/EllenHalv/budget-tracker-frontend)
 
-- Postman login for users [X]
-- Admin user with additional CRUD privilegies [X]
-- Authentication for endpoints in BudgetController [X]
-
-TODO (work in progress):
-- Add auth for endpoints in ExpenseController [ ]
-- UI login [ ]
-- UI view of all expenses [ ]
-
-## API Documentation with Swagger UI:
-
-This project uses Swagger UI for API documentation.
-
-Once the application is started, visit this URL for documentation:
-
-[localhost:8080/swagger-ui.html](localhost:8080/swagger-ui.html)
-
-## React frontend
-
-Link to frontend: https://github.com/EllenHalv/budget-tracker-frontend
+## TODO (In Progress)
+- UI view for displaying expenses.
