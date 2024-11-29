@@ -6,14 +6,13 @@ The **Budget Tracker Application** enables users to manage their finances by set
 ## Features
 - **Budget Management**: Set budgets, track expenses, and monitor remaining balances.
 - **Database Integration**:
-    - **H2 Database**: Used for local testing and rapid prototyping.
-    - **MySQL Database**: Used in the development environment for scalability and reliability.
+    - **H2 Database**: Used for local testing.
+    - **MySQL Database**: Used in the development environment.
 - **Security**:
     - OAuth2-based authentication for secure user access. 🔑
-    - Endpoint protection in `BudgetController`.
-    - Postman-tested login endpoints for users.
+    - Endpoint protection in controllers.
     - Admin user role with additional CRUD privileges for advanced management.
-- **API Documentation**: Comprehensive API documentation available via Swagger UI.
+- **API Documentation**: API documentation available via Swagger UI.
     - Access the documentation after starting the application at:  
       `http://localhost:8080/swagger-ui.html`.
 
