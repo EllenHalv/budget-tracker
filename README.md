@@ -21,7 +21,7 @@ The **Budget Tracker Application** enables users to manage their finances by set
 
 ## TODO (In Progress)
 - UI view for displaying expenses.
-=======
+
 ## Getting Started  
 
 ### Backend Setup  
