@@ -16,6 +16,12 @@ The **Budget Tracker Application** enables users to manage their finances by set
     - Access the documentation after starting the application at:  
       `http://localhost:8080/swagger-ui.html`.
 
+## Frontend
+- **Link to frontend**: [Budget Tracker Frontend](https://github.com/EllenHalv/budget-tracker-frontend)
+
+## TODO (In Progress)
+- UI view for displaying expenses.
+=======
 ## Getting Started  
 
 ### Backend Setup  
