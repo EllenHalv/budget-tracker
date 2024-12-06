@@ -3,7 +3,7 @@ package org.example.budgettracker.api;
 import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import org.example.budgettracker.model.entity.Budget;
-import org.example.budgettracker.model.response.BudgetListDTO;
+import org.example.budgettracker.model.response.BudgetDTO;
 import org.example.budgettracker.service.BudgetService;
 import org.example.budgettracker.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -25,9 +25,9 @@ public class BudgetController {
 
     // saves budget to the logged in user
     @PostMapping
-    public ResponseEntity<Budget> save(@RequestBody Budget budget, Authentication auth) {
+    public ResponseEntity<BudgetDTO> save(@RequestBody BudgetDTO budget, Authentication auth) {
         if(auth == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        if(!isAdminOrLoggedInUser(budget.getUser().getId(), auth)) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        if(!isAdminOrLoggedInUser(budget.getUserId(), auth)) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         try {
             return ResponseEntity.ok(budgetService.save(budget));
         } catch (Exception e) {
@@ -37,7 +37,7 @@ public class BudgetController {
 
     // admin finds all budgets
     @GetMapping
-    public ResponseEntity<List<BudgetListDTO>> findAll(Authentication auth) {
+    public ResponseEntity<List<BudgetDTO>> findAll(Authentication auth) {
         if(auth == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         if(!isAdmin(auth)) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         try{
@@ -53,7 +53,7 @@ public class BudgetController {
 
     // finds all budgets by userId for the logged in user or admin
     @GetMapping("/user/{id}")
-    public ResponseEntity<List<Budget>> findAllByUserId(@PathVariable Long id, Authentication auth) {
+    public ResponseEntity<List<BudgetDTO>> findAllByUserId(@PathVariable Long id, Authentication auth) {
         if(auth == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         if(!isAdminOrLoggedInUser(id, auth)) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         try{
@@ -67,7 +67,7 @@ public class BudgetController {
 
     // finds a budget by id for the logged in user or admin
     @GetMapping("/{id}")
-    public ResponseEntity<Budget> findById(@PathVariable Long id, Authentication auth) {
+    public ResponseEntity<BudgetDTO> findById(@PathVariable Long id, Authentication auth) {
         if (auth == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         if (!isBudgetIdLoggedInUserOrAdmin(id, auth)) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         try {
@@ -81,7 +81,7 @@ public class BudgetController {
 
     // for updating info about the budget. not for expense objects
     @PutMapping("/{id}")
-    public ResponseEntity<Budget> update(@PathVariable Long id, @RequestBody Budget budget, Authentication auth) {
+    public ResponseEntity<BudgetDTO> update(@PathVariable Long id, @RequestBody BudgetDTO budget, Authentication auth) {
         if (auth == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         if (!isBudgetIdLoggedInUserOrAdmin(id, auth)) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         try {
@@ -105,7 +105,7 @@ public class BudgetController {
 
     // finds the current (latest) budget for the logged in user
     @GetMapping("/current/{id}")
-    public ResponseEntity<Budget> getCurrentBudget(@PathVariable Long id, Authentication auth) {
+    public ResponseEntity<BudgetDTO> getCurrentBudget(@PathVariable Long id, Authentication auth) {
         if (auth == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         if (!isLoggedInUser(id, auth)) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         try{
@@ -135,6 +135,6 @@ public class BudgetController {
     }
 
     private boolean isBudgetIdLoggedInUserOrAdmin(Long budgetId, Authentication auth) {
-        return isAdmin(auth) || isLoggedInUser(budgetService.findById(budgetId).getUser().getId(), auth);
+        return isAdmin(auth) || isLoggedInUser(budgetService.findById(budgetId).getUserId(), auth);
     }
 }
