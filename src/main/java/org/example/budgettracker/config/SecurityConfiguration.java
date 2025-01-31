@@ -34,9 +34,7 @@ public class SecurityConfiguration {
     private final RSAKeyProperties keyProperties;
     // whitelist all endpoints that should be publicly accessible
     private static final String[] AUTH_WHITELIST = {
-            // Homepage
             "/api/home",
-            // Login/Register
             "/api/auth/register",
             "/api/auth/login",
             //Swagger

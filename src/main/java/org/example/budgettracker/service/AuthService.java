@@ -2,6 +2,7 @@ package org.example.budgettracker.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.example.budgettracker.model.entity.Role;
 import org.example.budgettracker.model.entity.User;
 import org.example.budgettracker.model.request.AuthRequest;
 import org.example.budgettracker.model.response.AuthResponse;
@@ -39,7 +40,7 @@ public class AuthService {
         User user = User.builder()
                 .username(request.username())
                 .password(passwordEncoder.encode(request.password()))
-                .roles(new HashSet<>(List.of(roleRepo.findByAuthority("ROLE_USER").orElseThrow(() -> new RuntimeException("User role not found")))))
+                .roles(new HashSet<>(List.of(roleRepo.findByAuthority("USER").orElseThrow(() -> new RuntimeException("User role not found")))))
                 .budgets(new ArrayList<>())
                 .build();
 
@@ -53,6 +54,10 @@ public class AuthService {
         );
         String token = tokenService.generateJwt(auth);
         User user = userRepo.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+        /*// THIS SHOULD BE MOVED TO REGISTER METHOD?
+        Role role = roleRepo.findByAuthority("ROLE_USER").orElseThrow(() -> new RuntimeException("User role not found"));
+        user.setRoles(new HashSet<>(List.of(role)));
+        // THIS SHOULD BE MOVED TO REGISTER METHOD?*/
         return new AuthResponse(user, token);
     }
 }
