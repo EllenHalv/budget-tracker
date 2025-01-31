@@ -23,7 +23,7 @@ public class BudgetTrackerApplication {
         SpringApplication.run(BudgetTrackerApplication.class, args);
 
         // Start console menu
-        ConsoleMenu.main(args);
+//        ConsoleMenu.main(args);
     }
 
     /*@Bean
